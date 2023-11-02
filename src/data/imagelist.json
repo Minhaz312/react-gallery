@@ -1,13 +1,13 @@
 [
-    {"id":1,"link":"http://localhost:5173/images/image-1.webp"},
-    {"id":2,"link":"http://localhost:5173/images/image-2.webp"},
-    {"id":3,"link":"http://localhost:5173/images/image-3.webp"},
-    {"id":4,"link":"http://localhost:5173/images/image-4.webp"},
-    {"id":5,"link":"http://localhost:5173/images/image-5.webp"},
-    {"id":6,"link":"http://localhost:5173/images/image-6.webp"},
-    {"id":7,"link":"http://localhost:5173/images/image-7.webp"},
-    {"id":8,"link":"http://localhost:5173/images/image-8.webp"},
-    {"id":9,"link":"http://localhost:5173/images/image-9.webp"},
-    {"id":10,"link":"http://localhost:5173/images/image-10.jpeg"},
-    {"id":11,"link":"http://localhost:5173/images/image-11.jpeg"}
+    { "id": 1, "link": "/images/image-1.webp" },
+    { "id": 2, "link": "/images/image-2.webp" },
+    { "id": 3, "link": "/images/image-3.webp" },
+    { "id": 4, "link": "/images/image-4.webp" },
+    { "id": 5, "link": "/images/image-5.webp" },
+    { "id": 6, "link": "/images/image-6.webp" },
+    { "id": 7, "link": "/images/image-7.webp" },
+    { "id": 8, "link": "/images/image-8.webp" },
+    { "id": 9, "link": "/images/image-9.webp" },
+    { "id": 10, "link": "/images/image-10.jpeg" },
+    { "id": 11, "link": "/images/image-11.jpeg" }
 ]
