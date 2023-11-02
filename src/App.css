@@ -1,0 +1,59 @@
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #0c85e5;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #0879d7;
+}
+
+/* For Firefox */
+/* The scrollbar-width property is not supported in Firefox */
+/* You can use the scrollbar-color property instead */
+
+/* width */
+* {
+  scrollbar-width: thin;
+}
+
+/* Handle */
+* {
+  scrollbar-color: #0c85e5 #0879d7;
+}
+
+/* For Internet Explorer and Edge */
+/* The -ms-overflow-style property is specifically for IE and Edge */
+
+/* Track */
+* {
+  -ms-overflow-style: none;  /* Hides the scrollbar */
+}
+
+/* Handle */
+*::-ms-scrollbar {
+  width: 12px;
+}
+
+*::-ms-scrollbar-thumb {
+  background-color: transparent;
+}
+
+*::-ms-scrollbar-thumb:hover {
+  background-color: #0879d7;
+}
+
+.checkbox-bg {
+  background: rgb(130,135,255);
+background: radial-gradient(circle, rgba(130,135,255,1) 0%, rgba(12,133,229,0.8800770308123249) 21%, rgba(255,255,255,1) 57%);
+}
