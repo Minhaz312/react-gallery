@@ -1,27 +1,34 @@
-# React + TypeScript + Vite
+# React Gallery
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a custom gallery website, here user can even edit his/her image reorder and also there is a feature to make a featured just click on the button
 
-Currently, two official plugins are available:
+[live preview link](https://react-ollyo-gallery.netlify.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+-Image List
+-Reordering Image List
+-Edit Image
+-Make Feature Image
+-Upload New Image
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Technologies used
 
-- Configure the top-level `parserOptions` property like this:
+-ReactJS: as frontend js frameword
+-TailwindCss: as frontend css framework
+-Framer Motion: as animation helper
+-React Icons
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+## How to run?
+
+run following command
+
+```
+npm install & npm run dev
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+to build project
+```
+npm run build
+```
+
