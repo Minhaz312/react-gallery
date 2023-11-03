@@ -14,39 +14,37 @@ import {
     MdOutlineRotate90DegreesCw,
 } from "react-icons/md";
 
-
-
 export default function Home() {
-
-    const [showEditImageModal, setShowEditImageModal] = useState<boolean>(false);
+    const [showEditImageModal, setShowEditImageModal] =
+        useState<boolean>(false);
 
     const [loading, setLoading] = useState(true);
     const [imageList, setImageList] = useState<ImageItem[]>([]);
-    const [featuredImage, setFeaturedImage] = useState<any>(null)
-    const [featuredImageDragStarted, setFeaturedImageDragStarted] = useState<boolean>(false);
-    const [selectedImage, setSelectedImage] = useState <ImageItem[]>([]);
-    const [sourceItem, setSourceItem] = useState<ImageItem>()
-    const [selectedEditableImage, setSelectedEditableImage] = useState<ImageItem>()
+    const [featuredImage, setFeaturedImage] = useState<any>(null);
+    const [featuredImageDragStarted, setFeaturedImageDragStarted] =
+        useState<boolean>(false);
+    const [selectedImage, setSelectedImage] = useState<ImageItem[]>([]);
+    const [sourceItem, setSourceItem] = useState<ImageItem>();
+    const [selectedEditableImage, setSelectedEditableImage] =
+        useState<ImageItem>();
 
     // image edit state
-    const [zoom, setZoom] = useState<number>(1)
-    const [rotate, setRotate] = useState<number>(0)
-    const [height, setHeight] = useState<number>(250)
-    const [width, setWidth] = useState<number>(250)
+    const [zoom, setZoom] = useState<number>(1);
+    const [rotate, setRotate] = useState<number>(0);
+    const [height, setHeight] = useState<number>(250);
+    const [width, setWidth] = useState<number>(250);
     const [imageRound, setImageRound] = useState<number>(0);
 
-
-
-    const handleSelectImage = (image:ImageItem) => {
-        const index = selectedImage.findIndex(p=>p.id===image.id)
-        if(index>-1){
+    const handleSelectImage = (image: ImageItem) => {
+        const index = selectedImage.findIndex((p) => p.id === image.id);
+        if (index > -1) {
             const newList = [...selectedImage];
-            newList.splice(index,1);
+            newList.splice(index, 1);
             setSelectedImage(newList);
-        }else{
-            setSelectedImage(prev=>[...prev,image]);
+        } else {
+            setSelectedImage((prev) => [...prev, image]);
         }
-    }
+    };
     const handleDeleteSelectedImage = () => {
         if (selectedImage.length > 0) {
             let newList = [...imageList];
@@ -87,7 +85,10 @@ export default function Home() {
 
     const handleOnDrop = (image: ImageItem) => {
         setFeaturedImageDragStarted(false);
-        if (sourceItem !== undefined) {
+        console.log("source id: ", sourceItem);
+        console.log("image id: ", image);
+        if (sourceItem !== undefined && sourceItem.id !== image.id) {
+            console.log("src and img not same");
             if (sourceItem.id === featuredImage.id) {
                 setFeaturedImage(image);
                 let newImageList = [...imageList];
@@ -114,6 +115,8 @@ export default function Home() {
                 );
                 setImageList(newImageList);
             }
+        } else {
+            console.log("src img same");
         }
     };
 
