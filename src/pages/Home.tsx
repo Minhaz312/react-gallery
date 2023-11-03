@@ -1,18 +1,11 @@
-import { useState, useEffect } from 'react';
-import GalleryItem from '../components/gallery/GalleryItem';
-import galleryList from './../data/imagelist.json'
-import CheckBox from '../components/custom-component/CheckBox';
-import GallerySckeliton from '../components/gallery/GallerySckeliton';
-import ImageItem from '../utils/types/galleryImageTypes';
-import Modal from '../components/custom-component/modal/Modal';
-
-import AvatarEditor from "react-avatar-editor";
-
-import { AiOutlineZoomIn, AiOutlineZoomOut } from "react-icons/ai";
-import {
-    MdOutlineRotate90DegreesCcw,
-    MdOutlineRotate90DegreesCw,
-} from "react-icons/md";
+import { useState, useEffect } from "react";
+import GalleryItem from "../components/gallery/GalleryItem";
+import galleryList from "./../data/imagelist.json";
+import CheckBox from "../components/custom-component/CheckBox";
+import GallerySckeliton from "../components/gallery/GallerySckeliton";
+import ImageItem from "../utils/types/galleryImageTypes";
+import Modal from "../components/custom-component/modal/Modal";
+import EditImage from "../components/gallery/EditImage";
 
 export default function Home() {
     const [showEditImageModal, setShowEditImageModal] =
@@ -21,19 +14,10 @@ export default function Home() {
     const [loading, setLoading] = useState(true);
     const [imageList, setImageList] = useState<ImageItem[]>([]);
     const [featuredImage, setFeaturedImage] = useState<any>(null);
-    const [featuredImageDragStarted, setFeaturedImageDragStarted] =
-        useState<boolean>(false);
     const [selectedImage, setSelectedImage] = useState<ImageItem[]>([]);
     const [sourceItem, setSourceItem] = useState<ImageItem>();
     const [selectedEditableImage, setSelectedEditableImage] =
         useState<ImageItem>();
-
-    // image edit state
-    const [zoom, setZoom] = useState<number>(1);
-    const [rotate, setRotate] = useState<number>(0);
-    const [height, setHeight] = useState<number>(250);
-    const [width, setWidth] = useState<number>(250);
-    const [imageRound, setImageRound] = useState<number>(0);
 
     const handleSelectImage = (image: ImageItem) => {
         const index = selectedImage.findIndex((p) => p.id === image.id);
@@ -84,9 +68,6 @@ export default function Home() {
     };
 
     const handleOnDrop = (image: ImageItem) => {
-        setFeaturedImageDragStarted(false);
-        console.log("source id: ", sourceItem);
-        console.log("image id: ", image);
         if (sourceItem !== undefined && sourceItem.id !== image.id) {
             console.log("src and img not same");
             if (sourceItem.id === featuredImage.id) {
@@ -150,93 +131,16 @@ export default function Home() {
                     title="Edit Image"
                     onHide={handleShowEditImageModal}
                 >
-                    <div className="w-full bg-slate-400 block md:flex flex-col-reverse">
-                        <div className="w-full">
-                            <AvatarEditor
-                                image={selectedEditableImage.link}
-                                width={width}
-                                height={height}
-                                border={50}
-                                borderRadius={imageRound}
-                                color={[0, 0, 0, 0.6]} // RGBA
-                                scale={zoom}
-                                rotate={rotate}
-                            />
-                        </div>
-                        <div className="w-full flex gap-1 flex-wrap md:block md:w-[100px] bg-slate-100 p-1">
-                            <div className="bg-white rounded mb-2">
-                                <input
-                                    type="number"
-                                    defaultValue={height}
-                                    className="w-full px-0.5 py-1 text-[13px]"
-                                    placeholder="height"
-                                    min={50}
-                                    max={500}
-                                    onChange={(e) =>
-                                        setHeight(Number(e.target.value))
-                                    }
-                                />
-                            </div>
-                            <div className="bg-white rounded mb-2">
-                                <input
-                                    type="number"
-                                    defaultValue={width}
-                                    className="w-full px-0.5 py-1 text-[13px]"
-                                    placeholder="Width"
-                                    min={50}
-                                    max={500}
-                                    onChange={(e) =>
-                                        setWidth(Number(e.target.value))
-                                    }
-                                />
-                            </div>
-                            <div className="bg-white rounded flex justify-around">
-                                <button
-                                    className="px-2 py-2"
-                                    onClick={() => setZoom((z) => z + 0.1)}
-                                >
-                                    <AiOutlineZoomIn />
-                                </button>
-                                <button
-                                    className="px-2 py-2"
-                                    onClick={() => setZoom((z) => z - 0.1)}
-                                >
-                                    <AiOutlineZoomOut />
-                                </button>
-                            </div>
-                            <div className="bg-white rounded flex justify-around mt-2">
-                                <button
-                                    className="px-2 py-2"
-                                    onClick={() => setRotate((r) => r + 10)}
-                                >
-                                    <MdOutlineRotate90DegreesCcw />
-                                </button>
-                                <button
-                                    className="px-2 py-2"
-                                    onClick={() => setRotate((r) => r - 10)}
-                                >
-                                    <MdOutlineRotate90DegreesCw />
-                                </button>
-                            </div>
-                            <div className="bg-white rounded flex justify-around mt-2">
-                                <input
-                                    type="number"
-                                    className="w-full px-0.5 py-1 text-[13px]"
-                                    placeholder="round"
-                                    min={0}
-                                    max={150}
-                                    onChange={(e) =>
-                                        setImageRound(Number(e.target.value))
-                                    }
-                                />
-                            </div>
-                        </div>
-                    </div>
+                    <EditImage
+                        imageList={imageList}
+                        setImageList={setImageList}
+                        selectedEditableImage={selectedEditableImage}
+                    />
                 </Modal>
             )}
             <div className="w-full h-full overflow-auto bg-white rounded border p-3 py-2 md:px-10 sm:py-6">
                 {/* image selection header */}
-                <div className="p-1 mb-5 border-b sm:p-3">
+                <div className="pb-1 mb-5 border-b sm:pb-3">
                     {selectedImage.length > 0 ? (
                         <div className="w-full flex justify-between">
                             <div className="flex items-center gap-x-2">
@@ -257,7 +161,7 @@ export default function Home() {
                         </div>
                     ) : (
                         <div className="flex justify-between items-center">
-                            <h3 className="text-base font-semibold text-violet-900 uppercase sm:text-xl md:text-2xl">
+                            <h3 className="text-base font-semibold text-primary uppercase sm:text-xl md:text-2xl">
                                 Image Gallery
                             </h3>
                             <label className="px-1.5 py-1 flex justify-center items-center bg-blue-400/10 hover:bg-blue-400/30 transition-all rounded">
@@ -280,21 +184,11 @@ export default function Home() {
                     )}
                 </div>
                 <div className="grid grid-flow-row grid-cols-2 gap-1 sm:gap-2 md:gap-4 lg:gap-6 xl:gap-8 xs:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5">
-                    <div className="group overflow-hidden rounded p-3 border col-span-2 row-span-2">
+                    <div className="group select-none overflow-hidden rounded border col-span-2 row-span-2 md:p-2">
                         <div
-                            className={`relative ${
-                                featuredImageDragStarted
-                                    ? "w-[50%] aspect-square"
-                                    : "w-full"
-                            }`}
-                            draggable={true}
-                            onDragStart={() => {
-                                setSourceItem(featuredImage);
-                                setFeaturedImageDragStarted(true);
-                            }}
+                            className={`relative`}
                             onDragOver={(e) => {
                                 e.preventDefault();
-                                setFeaturedImageDragStarted(false);
                             }}
                             onDrop={() => {
                                 if (sourceItem !== undefined) {

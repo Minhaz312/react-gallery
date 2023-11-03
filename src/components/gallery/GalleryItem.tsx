@@ -33,7 +33,7 @@ export default function GalleryItem({
             <div
                 className={`group overflow-hidden select-none ${
                     dragStarted &&
-                    "bg-red-900 p-3 md:p-10 border-4 cursor-grabbing"
+                    "bg-primary p-3 md:p-8 border-4 cursor-grabbing"
                 } rounded p-3 border relative`}
                 onDragOver={(e) => {
                     console.log("drag over");
@@ -57,7 +57,11 @@ export default function GalleryItem({
                     draggable={true}
                 >
                     <div
-                        className={` h-full w-full flex justify-between absolute select-none bg-slate-900/10 group-hover:bg-slate-900/20 z-30 left-0 right-0 top-0 bottom-0 p-3`}
+                        className={` h-full w-full flex justify-between absolute select-none ${
+                            dragStarted
+                                ? "bg-white -z-10"
+                                : "bg-slate-900/10 group-hover:bg-slate-900/20 z-30"
+                        } left-0 right-0 top-0 bottom-0 p-3`}
                     >
                         <div>
                             <CheckBox
@@ -65,7 +69,7 @@ export default function GalleryItem({
                                 onSelect={() => onSelect(image)}
                             />
                         </div>
-                        {!isSelected && (
+                        {!isSelected && !dragStarted && (
                             <div className="flex group-hover:mr-2 -mr-[200px] transition-[0.33s_all] flex-col gap-y-3">
                                 <button
                                     onClick={() =>
