@@ -3,11 +3,6 @@ export default function GallerySckeliton() {
       <div className="bbg-[#edf2f7] h-screen w-full px-1 py-1 overflow-hidden sm:py-4 md:py-5 sm:px-4 md:px-6 lg:px-10 xl:px-14">
           <div className="w-full h-full overflow-auto bg-white rounded border p-3 py-2 md:px-10 sm:py-6">
               {/* image selection header */}
-              <div className="p-3 mb-5 border-b">
-                  <h3 className="text-xl font-semibold text-primary">
-                      Image Gallery
-                  </h3>
-              </div>
               <div className="grid grid-flow-row grid-cols-2 gap-1 sm:gap-2 md:gap-4 lg:gap-6 xl:gap-8 xs:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5">
                   <div className="overflow-hidden aspect-square bg-slate-200 animate-pulse rounded p-3 border col-span-2 row-span-2 relative"></div>
                   {Array.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).map((i) => (

@@ -6,6 +6,9 @@ import GallerySckeliton from "../components/gallery/GallerySckeliton";
 import ImageItem from "../utils/types/galleryImageTypes";
 import Modal from "../components/custom-component/modal/Modal";
 import EditImage from "../components/gallery/EditImage";
+import { motion } from "framer-motion";
+import FadeDown from "../components/custom-component/animate/FadeDown";
+import ZoomIn from "../components/custom-component/animate/ZoomIn";
 
 export default function Home() {
     const [showEditImageModal, setShowEditImageModal] =
@@ -140,7 +143,23 @@ export default function Home() {
             )}
             <div className="w-full h-full overflow-auto bg-white rounded border p-3 py-2 md:px-10 sm:py-6">
                 {/* image selection header */}
-                <div className="pb-1 mb-5 border-b sm:pb-3">
+                <motion.div
+                    initial={{
+                        marginLeft: -200,
+                        marginRight: -200,
+                    }}
+                    animate={{
+                        marginLeft: 0,
+                        marginRight: 0,
+                        transition: {
+                            delay: 0.01,
+                            duration: 1.33,
+                            type: "spring",
+                            stiffness: 180,
+                        },
+                    }}
+                    className="pb-1 mb-5 border-b sm:pb-3"
+                >
                     {selectedImage.length > 0 ? (
                         <div className="w-full flex justify-between">
                             <div className="flex items-center gap-x-2">
@@ -182,79 +201,85 @@ export default function Home() {
                             </label>
                         </div>
                     )}
-                </div>
+                </motion.div>
                 <div className="grid grid-flow-row grid-cols-2 gap-1 sm:gap-2 md:gap-4 lg:gap-6 xl:gap-8 xs:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5">
-                    <div className="group select-none overflow-hidden rounded border col-span-2 row-span-2 md:p-2">
-                        <div
-                            className={`relative`}
-                            onDragOver={(e) => {
-                                e.preventDefault();
-                            }}
-                            onDrop={() => {
-                                if (sourceItem !== undefined) {
-                                    let newImageList = [...imageList];
-                                    newImageList.splice(
-                                        imageList.findIndex(
-                                            (p) => p.id === sourceItem.id
-                                        ),
-                                        1,
-                                        featuredImage
-                                    );
-                                    setFeaturedImage(sourceItem);
-                                    setSourceItem({ id: -1, link: null });
-                                    setImageList(newImageList);
-                                }
-                            }}
-                        >
-                            <div className="absolute z-30 bg-slate-900/10 group-hover:bg-slate-900/20 left-0 right-0 top-0 bottom-0 h-full w-full p-3">
-                                <CheckBox
-                                    isSelected={
-                                        selectedImage.findIndex(
-                                            (p) => p.id === featuredImage.id
-                                        ) > -1
+                    {featuredImage !== null && (
+                        <ZoomIn className="group select-none overflow-hidden rounded border col-span-2 row-span-2 md:p-2">
+                            <div
+                                className={`relative`}
+                                onDragOver={(e) => {
+                                    e.preventDefault();
+                                }}
+                                onDrop={() => {
+                                    if (sourceItem !== undefined) {
+                                        let newImageList = [...imageList];
+                                        newImageList.splice(
+                                            imageList.findIndex(
+                                                (p) => p.id === sourceItem.id
+                                            ),
+                                            1,
+                                            featuredImage
+                                        );
+                                        setFeaturedImage(sourceItem);
+                                        setSourceItem({ id: -1, link: null });
+                                        setImageList(newImageList);
                                     }
-                                    onSelect={() =>
-                                        handleSelectImage(featuredImage)
-                                    }
+                                }}
+                            >
+                                <div className="absolute z-30 bg-slate-900/10 group-hover:bg-slate-900/20 left-0 right-0 top-0 bottom-0 h-full w-full p-3">
+                                    <CheckBox
+                                        isSelected={
+                                            selectedImage.findIndex(
+                                                (p) => p.id === featuredImage.id
+                                            ) > -1
+                                        }
+                                        onSelect={() =>
+                                            handleSelectImage(featuredImage)
+                                        }
+                                    />
+                                </div>
+                                <img
+                                    src={featuredImage.link}
+                                    alt="gallery image"
+                                    className="h-auto group-hover:scale-125 transition-[0.33s] z-10 w-full object-contain"
                                 />
                             </div>
-                            <img
-                                src={featuredImage.link}
-                                alt="gallery image"
-                                className="h-auto group-hover:scale-125 transition-[0.33s] z-10 w-full object-contain"
-                            />
-                        </div>
-                    </div>
+                        </ZoomIn>
+                    )}
                     {imageList.map((image, i) => (
-                        <GalleryItem
-                            onDragStart={() => {
-                                setSourceItem(image);
-                            }}
-                            onSelectToEdit={(image: ImageItem) =>
-                                handleShowEditImageModal(image)
-                            }
-                            onSelectFeatured={(image: ImageItem) => {
-                                let newList = [...imageList];
-                                newList.splice(
-                                    imageList.findIndex(
+                        <FadeDown delay={i * 0.01}>
+                            <GalleryItem
+                                onDragStart={() => {
+                                    setSourceItem(image);
+                                }}
+                                onSelectToEdit={(image: ImageItem) =>
+                                    handleShowEditImageModal(image)
+                                }
+                                onSelectFeatured={(image: ImageItem) => {
+                                    let newList = [...imageList];
+                                    newList.splice(
+                                        imageList.findIndex(
+                                            (p) => p.id === image.id
+                                        ),
+                                        1,
+                                        { ...featuredImage }
+                                    );
+                                    setFeaturedImage(image);
+                                    setImageList(newList);
+                                }}
+                                onDrop={(image: ImageItem) =>
+                                    handleOnDrop(image)
+                                }
+                                key={i}
+                                isSelected={
+                                    selectedImage.findIndex(
                                         (p) => p.id === image.id
-                                    ),
-                                    1,
-                                    { ...featuredImage }
-                                );
-                                setFeaturedImage(image);
-                                setImageList(newList);
-                            }}
-                            onDrop={(image: ImageItem) => handleOnDrop(image)}
-                            key={i}
-                            isSelected={
-                                selectedImage.findIndex(
-                                    (p) => p.id === image.id
-                                ) > -1
-                            }
-                            onSelect={handleSelectImage}
-                            image={image}
-                        />
+                                    ) > -1
+                                }
+                                onSelect={handleSelectImage}
+                                image={image}
+                            />
+                        </FadeDown>
                     ))}
                     <div className="border-2 aspect-square hidden md:block border-primary hover:bg-primary/10 transition-all border-dashed rounded relative z-10">
                         <label className="absolute h-full w-full left-0 bottom-0 top-0 right-0 z-30 flex justify-center items-center">
