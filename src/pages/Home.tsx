@@ -120,7 +120,7 @@ export default function Home() {
             setImageList(list);
             setFeaturedImage(galleryList[0]);
             setLoading(false);
-        }, 3000);
+        }, 100);
     }, []);
 
     if (loading) {
@@ -248,7 +248,7 @@ export default function Home() {
                         </ZoomIn>
                     )}
                     {imageList.map((image, i) => (
-                        <ZoomIn delay={0.01}>
+                        <ZoomIn>
                             <GalleryItem
                                 onDragStart={() => {
                                     setSourceItem(image);
