@@ -7,7 +7,6 @@ import ImageItem from "../utils/types/galleryImageTypes";
 import Modal from "../components/custom-component/modal/Modal";
 import EditImage from "../components/gallery/EditImage";
 import { motion } from "framer-motion";
-import FadeDown from "../components/custom-component/animate/FadeDown";
 import ZoomIn from "../components/custom-component/animate/ZoomIn";
 
 export default function Home() {
@@ -117,9 +116,11 @@ export default function Home() {
     useEffect(() => {
         const list = [...galleryList];
         list.splice(0, 1);
-        setImageList(list);
-        setFeaturedImage(galleryList[0]);
-        setLoading(false);
+        setTimeout(() => {
+            setImageList(list);
+            setFeaturedImage(galleryList[0]);
+            setLoading(false);
+        }, 3000);
     }, []);
 
     if (loading) {
@@ -247,7 +248,7 @@ export default function Home() {
                         </ZoomIn>
                     )}
                     {imageList.map((image, i) => (
-                        <FadeDown delay={i * 0.01}>
+                        <ZoomIn delay={0.01}>
                             <GalleryItem
                                 onDragStart={() => {
                                     setSourceItem(image);
@@ -279,7 +280,7 @@ export default function Home() {
                                 onSelect={handleSelectImage}
                                 image={image}
                             />
-                        </FadeDown>
+                        </ZoomIn>
                     ))}
                     <div className="border-2 aspect-square hidden md:block border-primary hover:bg-primary/10 transition-all border-dashed rounded relative z-10">
                         <label className="absolute h-full w-full left-0 bottom-0 top-0 right-0 z-30 flex justify-center items-center">

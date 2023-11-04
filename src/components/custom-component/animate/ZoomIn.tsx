@@ -4,19 +4,21 @@ import { motion } from "framer-motion";
 export default function ZoomIn({
     children,
     className = "",
+    delay = 0.1,
 }: {
     children: React.ReactNode;
     className?: string;
+    delay?: number;
 }) {
     return (
         <motion.div
             initial={{
-                scale: 0.3,
+                scale: 0.7,
             }}
             animate={{
-                scale: [0.5, 1, 1.5, 1],
+                scale: [0.8, 1, 1.3, 1],
                 transition: {
-                    delay: 0.01,
+                    delay: delay,
                     duration: 1.33,
                     type: "spring",
                     stiffness: 180,
