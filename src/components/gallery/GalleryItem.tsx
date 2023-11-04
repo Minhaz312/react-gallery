@@ -31,7 +31,7 @@ export default function GalleryItem({
                 ></div>
             )}
             <div
-                className={`group overflow-hidden select-none ${
+                className={`w-full h-full group overflow-hidden select-none ${
                     dragStarted &&
                     "bg-primary p-3 md:p-8 border-4 cursor-grabbing"
                 } rounded p-3 border relative`}

@@ -205,7 +205,7 @@ export default function Home() {
                 </motion.div>
                 <div className="grid grid-flow-row grid-cols-2 gap-1 sm:gap-2 md:gap-4 lg:gap-6 xl:gap-8 xs:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5">
                     {featuredImage !== null && (
-                        <ZoomIn className="group select-none overflow-hidden rounded border col-span-2 row-span-2 md:p-2">
+                        <ZoomIn className="w-full h-full aspect-square group select-none overflow-hidden rounded border col-span-2 row-span-2 md:p-2">
                             <div
                                 className={`relative`}
                                 onDragOver={(e) => {
